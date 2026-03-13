@@ -1,0 +1,51 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
+class TestClass {
+    public static void main(String args[] ) throws Exception {
+       Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int[] a = new int[n];
+
+            for (int i = 0; i < n; i++) {
+                a[i] = sc.nextInt();
+            }
+
+            int minLen = Integer.MAX_VALUE;
+            int count = 0;
+
+            for (int i = 0; i < n; i++) {
+                int inside = 0;
+
+                for (int j = i; j < n; j++) {
+                    inside |= a[j];
+
+                    int outside = 0;
+                    for (int k = 0; k < n; k++) {
+                        if (k < i || k > j)
+                            outside |= a[k];
+                    }
+
+                    if (inside == outside) {
+                        int len = j - i + 1;
+
+                        if (len < minLen) {
+                            minLen = len;
+                            count = 1;
+                        } else if (len == minLen) {
+                            count++;
+                        }
+                    }
+                }
+            }
+
+            if (count == 0)
+                System.out.println(-1);
+            else
+                System.out.println(minLen + " " + count);
+        }
+    }
+}
